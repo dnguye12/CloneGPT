@@ -1,13 +1,10 @@
-import { openai } from '@ai-sdk/openai'
-import { generateText } from 'ai';
+import HomeInput from "./components/HomeInput";
 
-export default async function Home() {
-    const {text} = await generateText({
-        model: openai('gpt-5'),
-        prompt: 'Write a vegetarian lasagna recipe for 4 people.',
-    })
 
-  return (
-    <p>{text}</p>
-  );
+export default function Home() {
+    return (
+        <div className="max-w-4xl mx-auto p-6 relative size-full rounded-lg border container">
+            <HomeInput />
+        </div>
+    );
 }
