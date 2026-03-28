@@ -6,8 +6,10 @@ import { Message, MessageContent, MessageResponse } from "@/components/ai-elemen
 import { PromptInput, PromptInputActionAddAttachments, PromptInputActionAddScreenshot, PromptInputActionMenu, PromptInputActionMenuContent, PromptInputActionMenuTrigger, PromptInputBody, PromptInputFooter, PromptInputHeader, PromptInputMessage, PromptInputSubmit, PromptInputTextarea, PromptInputTools } from "@/components/ai-elements/prompt-input";
 import HomeInputAttachmentsDisplay from "./HomeInputAttachmentsDisplay";
 import { useState } from "react";
+import { useModelSelectionStore } from "@/providers/model-selection-store-provider";
 
 const HomeInput = () => {
+    const { currentModel } = useModelSelectionStore((state) => state)
     const [text, setText] = useState<string>("")
     const { messages, status, sendMessage } = useChat({
         onFinish: (message) => {
@@ -30,7 +32,7 @@ const HomeInput = () => {
             },
             {
                 body: {
-                    model: 'gpt-5',
+                    model: currentModel.id,
                 },
             }
         )

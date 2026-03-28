@@ -4,13 +4,15 @@ import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
     const {
-        messages
+        messages,
+        model
     }: {
         messages: UIMessage[];
+        model: string;
     } = await req.json()
 
     const result = streamText({
-        model: openai('gpt-5'),
+        model: openai(model ? model : "gpt-5"),
         messages: await convertToModelMessages(messages)
     })
 
