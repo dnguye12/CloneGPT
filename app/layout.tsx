@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import HomeSidebar from "./components/home-sidebar/HomeSidebar";
 import HomeHeader from "./components/home-header/HomeHeader";
+import { ModelSelectionStoreProvider } from "@/providers/model-selection-store-provider";
 
 const geistSans = Geist({
   variable: "--font-sans",
@@ -39,10 +40,12 @@ export default function RootLayout({
         >
           <SidebarProvider>
             <HomeSidebar />
-            <main className="w-full">
-              <HomeHeader />
-              {children}
-            </main>
+            <ModelSelectionStoreProvider>
+              <main className="w-full">
+                <HomeHeader />
+                {children}
+              </main>
+            </ModelSelectionStoreProvider>
           </SidebarProvider>
 
         </ThemeProvider>
