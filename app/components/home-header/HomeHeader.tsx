@@ -1,6 +1,9 @@
+"use client"
+
 import ThemeToggle from "@/components/ThemeToggle";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import HomeModelSelector from "./components/HomeModelSelector";
 
 const HomeHeader = () => {
     return (
@@ -15,6 +18,7 @@ const HomeHeader = () => {
                 orientation="vertical"
                 className="h-4 my-0! self-center!"
             />
+            <HomeModelSelector />
         </header>
     );
 }

@@ -22,6 +22,7 @@ const HomeSidebarLogo = () => {
                     alt="HuyGPT"
                     height={24}
                     width={24}
+                    className=" size-6"
                 />
                 </Link>
             </Button>
