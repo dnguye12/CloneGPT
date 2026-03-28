@@ -86,7 +86,7 @@ const HomeInput = () => {
                                 <PromptInputActionAddScreenshot />
                             </PromptInputActionMenuContent>
                         </PromptInputActionMenu>
-                        <PromptInputSubmit disabled={!text && !status} status={status} />
+                        <PromptInputSubmit disabled={!text} status={status} />
                     </PromptInputTools>
                 </PromptInputFooter>
             </PromptInput>

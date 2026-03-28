@@ -4,7 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import HomeSidebar from "./components/home-sidebar/HomeSidebar";
-import HomeHeader from "./components/HomeHeader";
+import HomeHeader from "./components/home-header/HomeHeader";
 
 const geistSans = Geist({
   variable: "--font-sans",
@@ -30,6 +30,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body>
         <ThemeProvider

@@ -11,7 +11,7 @@ import {
     SidebarMenuItem,
     SidebarSeparator,
 } from "@/components/ui/sidebar"
-import HomeSidebarLogo from "./HomeSidebarLogo";
+import HomeSidebarLogo from "./components/HomeSidebarLogo";
 import { SearchIcon, SquarePenIcon } from "lucide-react";
 
 const HomeSidebar = () => {

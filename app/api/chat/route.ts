@@ -1,6 +1,6 @@
 import { openai } from "@ai-sdk/openai";
-import { convertToModelMessages, generateText, streamText, UIMessage } from "ai";
-import { NextRequest, NextResponse } from "next/server";
+import { convertToModelMessages, streamText, UIMessage } from "ai";
+import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
     const {
