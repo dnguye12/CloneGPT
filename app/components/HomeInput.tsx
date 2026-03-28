@@ -7,6 +7,7 @@ import { PromptInput, PromptInputActionAddAttachments, PromptInputActionAddScree
 import HomeInputAttachmentsDisplay from "./HomeInputAttachmentsDisplay";
 import { useState } from "react";
 import { useModelSelectionStore } from "@/providers/model-selection-store-provider";
+import { Button } from "@/components/ui/button";
 
 const HomeInput = () => {
     const { currentModel } = useModelSelectionStore((state) => state)
@@ -43,7 +44,7 @@ const HomeInput = () => {
     return (
         <div className="flex flex-col h-full">
             <Conversation>
-                <ConversationContent>
+                <ConversationContent className="px-0">
                     {messages.map((message) => (
                         <Message key={message.id} from={message.role}>
                             <MessageContent>
@@ -80,15 +81,19 @@ const HomeInput = () => {
                     />
                 </PromptInputBody>
                 <PromptInputFooter>
-                    <PromptInputTools>
+                    <PromptInputTools className="w-full justify-between">
                         <PromptInputActionMenu>
                             <PromptInputActionMenuTrigger />
-                            <PromptInputActionMenuContent>
-                                <PromptInputActionAddAttachments />
-                                <PromptInputActionAddScreenshot />
+                            <PromptInputActionMenuContent className=" min-w-fit flex flex-col">
+                                <Button variant={"ghost"} size={"lg"} asChild className=" justify-start">
+                                    <PromptInputActionAddAttachments />
+                                </Button>
+                                <Button variant={"ghost"} size={"lg"} asChild className=" justify-start">
+                                    <PromptInputActionAddScreenshot />
+                                </Button>
                             </PromptInputActionMenuContent>
                         </PromptInputActionMenu>
-                        <PromptInputSubmit disabled={!text} status={status} />
+                        <PromptInputSubmit status={status} />
                     </PromptInputTools>
                 </PromptInputFooter>
             </PromptInput>
