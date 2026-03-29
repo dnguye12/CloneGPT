@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/providers/theme-provider";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import HomeSidebar from "./components/home-sidebar/HomeSidebar";
 import HomeHeader from "./components/home-header/HomeHeader";
 import { ModelSelectionStoreProvider } from "@/providers/model-selection-store-provider";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/providers/auth-provider";
+import AuthGuard from "@/components/AuthGuard";
 
 const geistSans = Geist({
   variable: "--font-sans",
@@ -38,16 +42,22 @@ export default function RootLayout({
           attribute={"class"}
           defaultTheme="dark"
         >
-          <SidebarProvider>
-            <HomeSidebar />
-            <ModelSelectionStoreProvider>
-              <main className="w-full">
-                <HomeHeader />
-                {children}
-              </main>
-            </ModelSelectionStoreProvider>
-          </SidebarProvider>
-
+          <TooltipProvider>
+            <AuthProvider>
+              <AuthGuard>
+                <SidebarProvider>
+                  <HomeSidebar />
+                  <ModelSelectionStoreProvider>
+                    <main className="w-full">
+                      <HomeHeader />
+                      {children}
+                    </main>
+                    <Toaster />
+                  </ModelSelectionStoreProvider>
+                </SidebarProvider>
+              </AuthGuard>
+            </AuthProvider>
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>
