@@ -13,27 +13,35 @@ const models: Model[] = [
     {
         chef: "OpenAI",
         chefSlug: "openai",
-        id: "gpt-5",
-        name: "GPT 5",
+        id: "gpt-5.4",
+        name: "GPT 5.4",
         providers: ["openai", "azure"],
-        desc: "Normal model, faster"
+        desc: "Base model"
     },
     {
         chef: "OpenAI",
         chefSlug: "openai",
         id: "gpt-5.4-pro",
-        name: "GPT-5.4 Pro",
+        name: "GPT 5.4 Pro",
         providers: ["openai", "azure"],
         desc: "Pro model"
     },
     {
         chef: "OpenAI",
         chefSlug: "openai",
-        id: "o4-mini",
-        name: "o4 Mini",
+        id: "gpt-5.3-codex",
+        name: "GPT 5.3 Codex",
         providers: ["openai", "azure"],
-        desc: "Advanced reasoning model"
-    }
+        desc: "Agentic model"
+    },
+    {
+        chef: "OpenAI",
+        chefSlug: "openai",
+        id: "gpt-5.4-mini",
+        name: "GPT 5 Mini",
+        providers: ["openai", "azure"],
+        desc: "Fast model"
+    },
 ]
 
 export type ModelSelectionState = {
