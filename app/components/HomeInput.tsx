@@ -12,11 +12,7 @@ import { Button } from "@/components/ui/button";
 const HomeInput = () => {
     const { currentModel } = useModelSelectionStore((state) => state)
     const [text, setText] = useState<string>("")
-    const { messages, status, sendMessage } = useChat({
-        onFinish: (message) => {
-            console.log(message)
-        }
-    })
+    const { messages, status, sendMessage, stop } = useChat()
 
     const handleSubmit = (message: PromptInputMessage) => {
         const hasText = Boolean(message.text)
@@ -78,12 +74,13 @@ const HomeInput = () => {
                     <PromptInputTextarea
                         value={text}
                         onChange={(e) => setText(e.target.value)}
+                        className="min-h-12"
                     />
                 </PromptInputBody>
                 <PromptInputFooter>
                     <PromptInputTools className="w-full justify-between">
                         <PromptInputActionMenu>
-                            <PromptInputActionMenuTrigger />
+                            <PromptInputActionMenuTrigger variant={"outline"} />
                             <PromptInputActionMenuContent className=" min-w-fit flex flex-col">
                                 <Button variant={"ghost"} size={"lg"} asChild className=" justify-start">
                                     <PromptInputActionAddAttachments />
@@ -93,7 +90,10 @@ const HomeInput = () => {
                                 </Button>
                             </PromptInputActionMenuContent>
                         </PromptInputActionMenu>
-                        <PromptInputSubmit status={status} />
+                        <PromptInputSubmit
+                            status={status}
+                            onStop={stop}
+                        />
                     </PromptInputTools>
                 </PromptInputFooter>
             </PromptInput>

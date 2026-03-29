@@ -45,8 +45,8 @@ import {
   CornerDownLeftIcon,
   ImageIcon,
   Monitor,
+  PauseIcon,
   PlusIcon,
-  SquareIcon,
   XIcon,
 } from "lucide-react";
 import { nanoid } from "nanoid";
@@ -259,7 +259,7 @@ export const PromptInputProvider = ({
   >([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   // oxlint-disable-next-line eslint(no-empty-function)
-  const openRef = useRef<() => void>(() => {});
+  const openRef = useRef<() => void>(() => { });
 
   const add = useCallback((files: File[] | FileList) => {
     const incoming = [...files];
@@ -687,13 +687,13 @@ export const PromptInput = ({
       usingProvider
         ? controller?.attachments.clear()
         : setItems((prev) => {
-            for (const file of prev) {
-              if (file.url) {
-                URL.revokeObjectURL(file.url);
-              }
+          for (const file of prev) {
+            if (file.url) {
+              URL.revokeObjectURL(file.url);
             }
-            return [];
-          }),
+          }
+          return [];
+        }),
     [usingProvider, controller]
   );
 
@@ -849,9 +849,9 @@ export const PromptInput = ({
       const text = usingProvider
         ? controller.textInput.value
         : (() => {
-            const formData = new FormData(form);
-            return (formData.get("message") as string) || "";
-          })();
+          const formData = new FormData(form);
+          return (formData.get("message") as string) || "";
+        })();
 
       // Reset form immediately after capturing text to avoid race condition
       // where user input during async blob conversion would be lost
@@ -1043,15 +1043,15 @@ export const PromptInputTextarea = ({
 
   const controlledProps = controller
     ? {
-        onChange: (e: ChangeEvent<HTMLTextAreaElement>) => {
-          controller.textInput.setInput(e.currentTarget.value);
-          onChange?.(e);
-        },
-        value: controller.textInput.value,
-      }
+      onChange: (e: ChangeEvent<HTMLTextAreaElement>) => {
+        controller.textInput.setInput(e.currentTarget.value);
+        onChange?.(e);
+      },
+      value: controller.textInput.value,
+    }
     : {
-        onChange,
-      };
+      onChange,
+    };
 
   return (
     <InputGroupTextarea
@@ -1115,10 +1115,10 @@ export const PromptInputTools = ({
 export type PromptInputButtonTooltip =
   | string
   | {
-      content: ReactNode;
-      shortcut?: string;
-      side?: ComponentProps<typeof TooltipContent>["side"];
-    };
+    content: ReactNode;
+    shortcut?: string;
+    side?: ComponentProps<typeof TooltipContent>["side"];
+  };
 
 export type PromptInputButtonProps = ComponentProps<typeof InputGroupButton> & {
   tooltip?: PromptInputButtonTooltip;
@@ -1178,7 +1178,9 @@ export const PromptInputActionMenuTrigger = ({
   children,
   ...props
 }: PromptInputActionMenuTriggerProps) => (
-  <DropdownMenuTrigger render={<PromptInputButton className={className} {...props} />}>{children ?? <PlusIcon className="size-4" />}</DropdownMenuTrigger>
+  <DropdownMenuTrigger asChild>
+    <PromptInputButton className={className} {...props}>{children ?? <PlusIcon className="size-4" />}</PromptInputButton>
+  </DropdownMenuTrigger>
 );
 
 export type PromptInputActionMenuContentProps = ComponentProps<
@@ -1226,16 +1228,18 @@ export const PromptInputSubmit = ({
   if (status === "submitted") {
     Icon = <Spinner />;
   } else if (status === "streaming") {
-    Icon = <SquareIcon className="size-4" />;
+    Icon = <PauseIcon className="size-4" />;
   } else if (status === "error") {
     Icon = <XIcon className="size-4" />;
   }
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (isGenerating && onStop) {
+      if (isGenerating) {
         e.preventDefault();
-        onStop();
+        if (onStop) {
+          onStop();
+        }
         return;
       }
       onClick?.(e);
