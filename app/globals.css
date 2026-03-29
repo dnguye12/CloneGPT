@@ -132,3 +132,7 @@
     cursor: pointer;
   }
 }
+
+.main-container {
+  @apply container mx-auto max-w-3xl flex justify-center items-center h-[calc(100vh-64px)] px-6
+}
