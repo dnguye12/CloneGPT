@@ -52,7 +52,7 @@ export default function RootLayout({
                       <HomeHeader />
                       {children}
                     </main>
-                    <Toaster />
+                    <Toaster richColors />
                   </ModelSelectionStoreProvider>
                 </SidebarProvider>
               </AuthGuard>

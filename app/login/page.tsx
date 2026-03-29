@@ -12,6 +12,7 @@ import { useAuthStore } from "@/providers/auth-provider";
 import { useTheme } from "next-themes";
 import Image from 'next/image'
 import { useState } from "react";
+import { toast } from "sonner";
 
 const LoginPage = () => {
     const { theme } = useTheme()
@@ -19,8 +20,20 @@ const LoginPage = () => {
     const login = useAuthStore((state) => state.login)
     const isLoading = useAuthStore((state) => state.isLoading)
 
-    const handleLogin = () => {
-        login(username)
+    const handleLogin = async () => {
+        const res = await fetch(`/api/users`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username })
+        })
+
+        if (res?.ok) {
+            toast.success("Login successfully")
+            login(username)
+        } else {
+            toast.error("Login failed, try again")
+        }
+
     }
 
     return (
