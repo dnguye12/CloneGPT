@@ -4,7 +4,6 @@ import {
     SidebarFooter,
     SidebarGroup,
     SidebarGroupContent,
-    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
@@ -14,6 +13,7 @@ import {
 import HomeSidebarLogo from "./components/HomeSidebarLogo";
 import { SearchIcon, SquarePenIcon } from "lucide-react";
 import HomeSidebarMenuButtonText from "./components/HomeSidebarMenuButtonText";
+import HomeSidebarChatsList from "./components/HomeSidebarChatsList";
 
 const HomeSidebar = () => {
     
@@ -43,10 +43,7 @@ const HomeSidebar = () => {
                     </SidebarGroupContent>
                 </SidebarGroup>
                 <SidebarSeparator />
-                <SidebarGroup>
-                    <SidebarGroupLabel>Your chats</SidebarGroupLabel>
-                    <SidebarGroupContent></SidebarGroupContent>
-                </SidebarGroup>
+                <HomeSidebarChatsList />
             </SidebarContent>
             <SidebarFooter />
         </Sidebar>
