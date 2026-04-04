@@ -13,8 +13,11 @@ import {
 } from "@/components/ui/sidebar"
 import HomeSidebarLogo from "./components/HomeSidebarLogo";
 import { SearchIcon, SquarePenIcon } from "lucide-react";
+import HomeSidebarMenuButtonText from "./components/HomeSidebarMenuButtonText";
 
 const HomeSidebar = () => {
+    
+
     return (
         <Sidebar collapsible="icon">
             <SidebarHeader className="flex flex-row items-center justify-between">
@@ -28,12 +31,12 @@ const HomeSidebar = () => {
                         <SidebarMenu>
                             <SidebarMenuItem>
                                 <SidebarMenuButton>
-                                    <SquarePenIcon/> New chat
+                                    <SquarePenIcon/> <HomeSidebarMenuButtonText text="New Chat"/>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                             <SidebarMenuItem>
                                 <SidebarMenuButton>
-                                    <SearchIcon /> Search chat
+                                    <SearchIcon /> <HomeSidebarMenuButtonText text="Search Chat"/>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                         </SidebarMenu>
