@@ -1,20 +1,21 @@
 "use client"
 
 import { useChat } from "@ai-sdk/react";
-import { Conversation, ConversationContent, ConversationScrollButton } from "@/components/ai-elements/conversation";
-import { Message, MessageContent, MessageResponse } from "@/components/ai-elements/message";
 import { PromptInput, PromptInputActionAddAttachments, PromptInputActionAddScreenshot, PromptInputActionMenu, PromptInputActionMenuContent, PromptInputActionMenuTrigger, PromptInputBody, PromptInputFooter, PromptInputHeader, PromptInputMessage, PromptInputSubmit, PromptInputTextarea, PromptInputTools } from "@/components/ai-elements/prompt-input";
 import HomeInputAttachmentsDisplay from "./HomeInputAttachmentsDisplay";
 import { useState } from "react";
-import { useModelSelectionStore } from "@/providers/model-selection-store-provider";
 import { Button } from "@/components/ui/button";
+import { useAuthStore } from "@/providers/auth-provider";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const HomeInput = () => {
-    const { currentModel } = useModelSelectionStore((state) => state)
     const [text, setText] = useState<string>("")
-    const { messages, status, sendMessage, stop } = useChat()
+    const { status, stop } = useChat()
+    const username = useAuthStore((state) => state.username)
+    const router = useRouter()
 
-    const handleSubmit = (message: PromptInputMessage) => {
+    const handleSubmit = async (message: PromptInputMessage) => {
         const hasText = Boolean(message.text)
         const hasAttachments = Boolean(message.files?.length)
 
@@ -22,45 +23,25 @@ const HomeInput = () => {
             return
         }
 
-        sendMessage(
-            {
-                text: message.text || "Sent with attachments",
-                files: message.files,
-            },
-            {
-                body: {
-                    model: currentModel.id,
-                },
-            }
-        )
+        const res = await fetch(`/api/chat/create-chat`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username,
+                message
+            })
+        })
 
-        setText("")
+        if (res?.ok) {
+            const data = await res.json()
+            router.push(`/chat/${data.id}`)
+        } else {
+            toast.error("Create chat failed")
+        }
     }
 
     return (
         <div className="flex flex-col h-full">
-            <Conversation>
-                <ConversationContent className="px-0">
-                    {messages.map((message) => (
-                        <Message key={message.id} from={message.role}>
-                            <MessageContent>
-                                {message.parts.map((part, i) => {
-                                    switch (part.type) {
-                                        case "text":
-                                            return (
-                                                <MessageResponse key={`${message.id}-${i}`}>{part.text}</MessageResponse>
-                                            )
-                                        default:
-                                            return null
-                                    }
-                                })}
-                            </MessageContent>
-                        </Message>
-                    ))}
-                </ConversationContent>
-                <ConversationScrollButton />
-            </Conversation>
-
             <PromptInput
                 onSubmit={handleSubmit}
                 className="mt-4"
